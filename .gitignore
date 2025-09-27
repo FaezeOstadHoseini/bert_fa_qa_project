@@ -1,0 +1,10 @@
+# Model directories
+bert-fa-qa-results/
+models/best_model/
+models/checkpoint-*/
+
+# Logs
+logs/
+
+# Processed data
+data/processed/qa_dataset/.

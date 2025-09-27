@@ -1,13 +1,13 @@
 # Model Configuration
 model:
   pretrained_name: "HooshvareLab/bert-fa-base-uncased"
-  max_length: 64
-  stride: 16
+  max_length: 128
+  stride: 64
 
 # Training Configuration
 training:
-  batch_size: 1
-  eval_batch_size: 1
+  batch_size: 4
+  eval_batch_size: 4
   gradient_accumulation_steps: 4
   learning_rate: 2e-5
   num_epochs: 3
@@ -19,6 +19,8 @@ data:
   dataset_name: "SajjadAyoubi/persian_qa"
   sample_size: 100
   test_size: 0.2
+  processed_data_dir: "./data/processed"
+  processed_data_path: "./data/processed/qa_dataset"
 
 # Logging Configuration
 logging:

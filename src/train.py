@@ -14,7 +14,7 @@ from datetime import datetime
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-def load_config(config_path="../configs/training_config.yaml"):
+def load_config(config_path="configs/training_config.yaml"):
     """Load training configuration"""
     try:
         with open(config_path, 'r', encoding='utf-8') as f:
@@ -54,9 +54,8 @@ def load_model_and_tokenizer(config, device):
     """Load model and tokenizer with checkpoint support"""
     best_model_dir = config['output']['best_model_dir']
     output_dir = config['output']['output_dir']
-    
     # First, check if best model exists
-    if os.path.exists(best_model_dir):
+    if os.path.exists(best_model_dir) and os.listdir(best_model_dir):
         logger.info("🏆 Loading best model from previous training...")
         tokenizer = AutoTokenizer.from_pretrained(best_model_dir)
         model = AutoModelForQuestionAnswering.from_pretrained(best_model_dir)
@@ -253,16 +252,16 @@ def main():
             greater_is_better=False,
             
             # Training parameters
-            num_train_epochs=config['training']['num_epochs'],
-            per_device_train_batch_size=config['training']['batch_size'],
-            per_device_eval_batch_size=config['training']['eval_batch_size'],
-            gradient_accumulation_steps=config['training']['gradient_accumulation_steps'],
-            learning_rate=config['training']['learning_rate'],
-            weight_decay=config['training']['weight_decay'],
-            warmup_steps=config['training']['warmup_steps'],
+            num_train_epochs=int(config['training']['num_epochs']),
+            per_device_train_batch_size=int(config['training']['batch_size']),
+            per_device_eval_batch_size=int(config['training']['eval_batch_size']),
+            gradient_accumulation_steps=int(config['training']['gradient_accumulation_steps']),
+            learning_rate=float(config['training']['learning_rate']),
+            weight_decay=float(config['training']['weight_decay']),
+            warmup_steps=int(config['training']['warmup_steps']),
             
             # Evaluation
-            evaluation_strategy="epoch",
+            eval_strategy="epoch",
             logging_strategy="steps",
             
             # Memory optimization

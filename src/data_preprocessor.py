@@ -9,7 +9,7 @@ from typing import Dict, Any
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def load_config(config_path="..configs/training_config.yaml"):
+def load_config(config_path="configs/training_config.yaml"):
     """Load configuration"""
     with open(config_path, 'r') as f:
         return yaml.safe_load(f)
