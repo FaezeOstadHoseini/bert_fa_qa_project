@@ -1,6 +1,5 @@
 import subprocess
 import sys
-import os
 
 def run_pipeline():
     """Run the complete pipeline"""
@@ -8,18 +7,23 @@ def run_pipeline():
     
     # Step 1: Data preprocessing
     print("\n📊 Step 1: Data Preprocessing")
-    result = subprocess.run([sys.executable, "src/data_preprocessor.py"], capture_output=True, text=True)
-    print(result.stdout)
+    print("-" * 50)
+    
+    # Simply run without capturing - output will be displayed in real-time
+    result = subprocess.run([sys.executable, "src/data_preprocessor.py"])
+    
     if result.returncode != 0:
-        print(f"❌ Data preprocessing failed: {result.stderr}")
+        print(f"❌ Data preprocessing failed")
         return
     
     # Step 2: Training
     print("\n🎯 Step 2: Model Training")
-    result = subprocess.run([sys.executable, "src/train.py"], capture_output=True, text=True)
-    print(result.stdout)
+    print("-" * 50)
+    
+    result = subprocess.run([sys.executable, "src/train.py"])
+    
     if result.returncode != 0:
-        print(f"❌ Training failed: {result.stderr}")
+        print(f"❌ Training failed")
         return
     
     print("✅ Pipeline completed successfully!")
